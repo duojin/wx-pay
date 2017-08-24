@@ -7,7 +7,6 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.wxpay.api.conf.WxpayConfigure;
-import com.wxpay.api.domain.WxpayModel;
 import com.wxpay.api.domain.WxpayTradeAppPayModel;
 import com.wxpay.api.internal.mapping.MapUtils;
 import com.wxpay.api.internal.parser.xml.ObjectXmlParser;
@@ -33,7 +32,7 @@ public class DefaultWxpayClient implements WxpayClient {
 
     private int    connectTimeout = 3000;
     private int    readTimeout    = 15000;
-    private Map<String, String> clientParams = new HashMap();
+    private Map<String, String> clientParams = new HashMap<String, String>();
 
     static {
         //清除安全设置
@@ -92,9 +91,16 @@ public class DefaultWxpayClient implements WxpayClient {
         try {
 
         	tRsp = parser.parse(responseStr);
+        	
+        	if(tRsp.isNeedVerifySign()){
+        		Map<String,String> params = MapUtils.getParamterMap(tRsp);
+        		if(!WxpaySignature.signCheck(params, this.privateKey, this.sign_type)){
+        			throw new WxpayApiException("验证签名没有通过,待验证签名map="+new Gson().toJson(params));
+        		}
+        	}
 
-        } catch (RuntimeException e) {
-            throw e;
+        } catch (Exception e) {
+        	throw new WxpayApiException("解析响应失败,responseStr="+responseStr,e);
         } 
 
         return tRsp;

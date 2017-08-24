@@ -52,7 +52,7 @@ public class WxPay {
     	     return wxpayClient.sdkExecute(appPay);
     	} else {
     		logger.error("##out## response:="+new Gson().toJson(response));
-    		throw new WxpayApiException(response.getReturnMsg());
+    		throw new WxpayApiException(response.getErr_code_des());
     	}
     }
     
@@ -74,7 +74,7 @@ public class WxPay {
     		return response;
     	} else {
     		logger.error("##out## response:="+new Gson().toJson(response));
-    		throw new WxpayApiException(response.getReturnMsg());
+    		throw new WxpayApiException(response.getErr_code_des());
     	}
     }
     

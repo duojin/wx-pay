@@ -14,29 +14,29 @@ public abstract class WxpayResponse implements Serializable {
     private static final long   serialVersionUID = 5014379068811962022L;
 
     @ApiField("return_code")
-    private String              returnCode;
+    private String              return_code;
 
     @ApiField("return_msg")
-    private String              returnMsg;
-
-    public String getReturnCode() {
-		return returnCode;
+    private String              return_msg;
+    
+    public String getReturn_code() {
+		return return_code;
 	}
 
-	public void setReturnCode(String returnCode) {
-		this.returnCode = returnCode;
+	public void setReturn_code(String return_code) {
+		this.return_code = return_code;
 	}
 
-	public String getReturnMsg() {
-		return returnMsg;
+	public String getReturn_msg() {
+		return return_msg;
 	}
 
-	public void setReturnMsg(String returnMsg) {
-		this.returnMsg = returnMsg;
+	public void setReturn_msg(String return_msg) {
+		this.return_msg = return_msg;
 	}
 
-    public boolean isSuccess() {
-        return WxpayConstants.SUCCESS.equals(returnCode);
+	public boolean isSuccess() {
+        return WxpayConstants.SUCCESS.equals(return_code);
     }
     
     public boolean isNeedVerifySign() {

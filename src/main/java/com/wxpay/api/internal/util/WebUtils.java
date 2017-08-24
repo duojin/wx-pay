@@ -628,7 +628,6 @@ public abstract class WebUtils {
           
           result = EntityUtils.toString(entity, charset);
           
-          System.out.println("responseData:" + result);
         }catch (Exception e){
             throw new RuntimeException("http get throw Exception");
         }finally{

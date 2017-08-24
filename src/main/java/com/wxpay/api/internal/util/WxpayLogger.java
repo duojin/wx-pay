@@ -239,9 +239,9 @@ public class WxpayLogger {
         StringBuilder sb = new StringBuilder();
         sb.append("ErrorScene");
         sb.append("^_^");
-        sb.append(tRsp.getReturnCode());
+        sb.append(tRsp.getReturn_code());
         sb.append("^_^");
-        sb.append(tRsp.getReturnMsg());
+        sb.append(tRsp.getReturn_msg());
         sb.append("^_^");
         sb.append(ip);
         sb.append("^_^");
