@@ -91,17 +91,19 @@ public class DefaultWxpayClient implements WxpayClient {
         try {
 
         	tRsp = parser.parse(responseStr);
-        	
-        	if(tRsp.isNeedVerifySign()){
-        		Map<String,String> params = MapUtils.getParamterMap(tRsp);
-        		if(!WxpaySignature.signCheck(params, this.privateKey, this.sign_type)){
-        			throw new WxpayApiException("验证签名没有通过,待验证签名map="+new Gson().toJson(params));
-        		}
+        	if(tRsp==null){
+        		throw new WxpayApiException("解析响应失败(tRsp==null),responseStr="+responseStr);
         	}
-
         } catch (Exception e) {
         	throw new WxpayApiException("解析响应失败,responseStr="+responseStr,e);
         } 
+
+    	if(tRsp.isNeedVerifySign()){
+    		Map<String,String> params = MapUtils.getParamterMap(tRsp);
+    		if(!WxpaySignature.signCheck(params, this.privateKey, this.sign_type)){
+    			throw new WxpayApiException("验证签名没有通过,待验证签名map="+new Gson().toJson(params));
+    		}
+    	}
 
         return tRsp;
     }
