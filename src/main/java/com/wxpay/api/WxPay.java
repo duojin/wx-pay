@@ -26,7 +26,7 @@ public class WxPay {
     			WxpayConfigure.getMCH_KEY()
     		);
     
-    public static void initAliPayCustomClient(String appId, String mchId, String key){
+    public static void initWxPayCustomClient(String appId, String mchId, String key){
     	wxpayClient = new DefaultWxpayClient(appId, mchId, key);
     }
     
