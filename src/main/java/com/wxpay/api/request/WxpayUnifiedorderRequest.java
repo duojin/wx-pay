@@ -362,10 +362,10 @@ public class WxpayUnifiedorderRequest implements WxpayRequest<WxpayUnifiedorderR
 	}
 	  
 	public void setClientParams(Map<String, String> clientParams){
-		setAppid((String)clientParams.get("appid"));
-		setMch_id((String)clientParams.get("mch_id"));
+		setAppid(clientParams.get("appid"));
+		setMch_id(clientParams.get("mch_id"));
 		setNonce_str(RandomUtil.getRandomString());
-		setSign_type((String)clientParams.get("sign_type"));
+		setSign_type(clientParams.get("sign_type"));
 		setNotify_url(WxpayConfigure.getNOTIFY_URL());
 	}
 	

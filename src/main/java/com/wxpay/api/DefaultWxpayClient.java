@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.wxpay.api.conf.WxpayConfigure;
 import com.wxpay.api.domain.WxpayTradeAppPayModel;
 import com.wxpay.api.internal.mapping.MapUtils;
 import com.wxpay.api.internal.parser.xml.ObjectXmlParser;
@@ -28,6 +27,7 @@ public class DefaultWxpayClient implements WxpayClient {
     private String appId;
     private String mch_id;
     private String privateKey;
+    private String certPath;
     private String sign_type      = WxpayConstants.SIGN_TYPE_MD5;
 
     private int    connectTimeout = 3000;
@@ -43,6 +43,16 @@ public class DefaultWxpayClient implements WxpayClient {
         this.appId = appId;
         this.mch_id = mch_id;
         this.privateKey = privateKey;
+        this.clientParams.put("appid", appId);
+        this.clientParams.put("mch_id", mch_id);
+        this.clientParams.put("sign_type", this.sign_type);
+    }
+
+    public DefaultWxpayClient(String appId, String mch_id, String privateKey, String certPath) {
+        this.appId = appId;
+        this.mch_id = mch_id;
+        this.privateKey = privateKey;
+        this.certPath = certPath;
         this.clientParams.put("appid", appId);
         this.clientParams.put("mch_id", mch_id);
         this.clientParams.put("sign_type", this.sign_type);
@@ -124,8 +134,8 @@ public class DefaultWxpayClient implements WxpayClient {
         String postBody = buildXmlBody(requestHolder.getSortedParams());
         try {
         	if(request.isNeedCert()){
-                String certPath = WxpayConfigure.getCERT_PATH();
-                String certPwd = WxpayConfigure.getMCH_ID();
+                String certPath = this.certPath;
+                String certPwd = this.mch_id;
                 rsp = WebUtils.doHttpsPost2Wx(url, postBody, WxpayConstants.CHARSET,connectTimeout, readTimeout,certPath,certPwd);
         	}else{
                 rsp = WebUtils.doHttpPost2Wx(url, postBody, WxpayConstants.CHARSET,connectTimeout, readTimeout);

@@ -3,7 +3,6 @@ package com.wxpay.api.request;
 import java.util.Map;
 
 import com.wxpay.api.WxpayRequest;
-import com.wxpay.api.conf.WxpayConfigure;
 import com.wxpay.api.internal.mapping.ApiField;
 import com.wxpay.api.internal.util.RandomUtil;
 import com.wxpay.api.response.WxpayFundTransOrderQueryResponse;
@@ -109,10 +108,9 @@ public class WxpayFundTransOrderQueryRequest implements WxpayRequest<WxpayFundTr
 		return WxpayFundTransOrderQueryResponse.class;
 	}
 
-	public void setClientParams(Map<String, String> paramMap) {
-		setAppid(WxpayConfigure.getAPP_ID());
-	    setMchid(WxpayConfigure.getMCH_ID());
+	public void setClientParams(Map<String, String> clientParams) {
+		setAppid(clientParams.get("appid"));
+		setMchid(clientParams.get("mch_id"));
 	    setNonce_str(RandomUtil.getRandomString());
 	}
-
 }
