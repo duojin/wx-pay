@@ -10,8 +10,10 @@ import com.wxpay.api.conf.WxpayConfigure;
 import com.wxpay.api.domain.WxpayTradeAppPayModel;
 import com.wxpay.api.internal.util.WxpaySignature;
 import com.wxpay.api.request.WxpayFundTransToaccountTransferRequest;
+import com.wxpay.api.request.WxpayTradeRefundRequest;
 import com.wxpay.api.request.WxpayUnifiedorderRequest;
 import com.wxpay.api.response.WxpayFundTransToaccountTransferResponse;
+import com.wxpay.api.response.WxpayTradeRefundResponse;
 import com.wxpay.api.response.WxpayUnifiedorderResponse;
 
 
@@ -23,7 +25,8 @@ public class WxPay {
 	private static WxpayClient wxpayClient = new DefaultWxpayClient(
     			WxpayConfigure.getAPP_ID(),
     			WxpayConfigure.getMCH_ID(),
-    			WxpayConfigure.getMCH_KEY()
+    			WxpayConfigure.getMCH_KEY(),
+    			WxpayConfigure.getCERT_PATH()
     		);
     
     public static void initWxPayCustomClient(String appId, String mchId, String key){
@@ -69,6 +72,28 @@ public class WxPay {
     	WxpayFundTransToaccountTransferRequest request = new WxpayFundTransToaccountTransferRequest();
     	request.setBizContent(bizContent);
     	WxpayFundTransToaccountTransferResponse response = wxpayClient.execute(request);
+    	if(response.isSuccess()){
+    		logger.info("##out## response:="+new Gson().toJson(response));
+    		return response;
+    	} else {
+    		logger.error("##out## response:="+new Gson().toJson(response));
+    		throw new WxpayApiException(response.getErr_code_des());
+    	}
+    }
+
+    /**
+     * 退款接口
+     * make by liuxj 2018年5月14日下午2:45:13
+     * @param bizContent
+     * @return
+     * @throws WxpayApiException
+     */
+    public static WxpayTradeRefundResponse refund(Map<String, Object> bizContent) throws WxpayApiException{
+    	
+    	logger.debug("##in## bizContent:="+new Gson().toJson(bizContent));
+    	WxpayTradeRefundRequest request = new WxpayTradeRefundRequest();
+    	request.setBizContent(bizContent);
+    	WxpayTradeRefundResponse response = wxpayClient.execute(request);
     	if(response.isSuccess()){
     		logger.info("##out## response:="+new Gson().toJson(response));
     		return response;
