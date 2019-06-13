@@ -31,6 +31,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
@@ -563,7 +564,8 @@ public abstract class WebUtils {
     	StringEntity postEntity = new StringEntity(postBody, charset);
     	httpPost.addHeader("Content-Type", "text/xml");
         httpPost.setEntity(postEntity);
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(readTimeout).setConnectTimeout(connectTimeout).build();
+        HttpHost proxy = buildHttpProxy();
+        RequestConfig requestConfig = RequestConfig.custom().setProxy(proxy).setSocketTimeout(readTimeout).setConnectTimeout(connectTimeout).build();
         
         httpPost.setConfig(requestConfig);
         
@@ -586,7 +588,37 @@ public abstract class WebUtils {
         return result;
     }
     
-    public static String doHttpsPost2Wx(String url, String postBody, String charset, int connectTimeout, int readTimeout, String certPath, String certPwd) throws Exception{
+    /**
+	 * make by liuxj 2018年5月22日下午2:52:47
+	 * @return
+	 */
+	private static HttpHost buildHttpProxy() {
+		String proxyHost  = System.getProperty("http.proxyHost");
+		String proxyPort  = System.getProperty("http.proxyPort");
+		int port = -1;
+		if(null!=proxyHost && !proxyHost.isEmpty()) {
+			try {
+				port = Integer.valueOf(proxyPort);
+			}catch(NumberFormatException e) {
+				System.out.println("getProperty proxyPort NumberFormatException err  proxyPort="+proxyPort+",use defalut -1");
+			}
+			return new HttpHost(proxyHost,port,"http");
+		}else {
+			proxyHost = System.getenv("proxyHost");
+			proxyPort = System.getenv("proxyPort");
+			if(null!=proxyHost && !proxyHost.isEmpty()) {
+				try {
+					port = Integer.valueOf(proxyPort);
+				}catch(NumberFormatException e) {
+					System.out.println("getenv proxyPort NumberFormatException err  proxyPort="+proxyPort+",use defalut -1");
+				}
+				return new HttpHost(proxyHost,port,"http");
+			}
+		}
+		return null;
+	}
+
+	public static String doHttpsPost2Wx(String url, String postBody, String charset, int connectTimeout, int readTimeout, String certPath, String certPwd) throws Exception{
     	FileInputStream instream = null;
         CloseableHttpClient httpClient = null;
         
@@ -611,7 +643,8 @@ public abstract class WebUtils {
         
         String result = "";
         System.out.println("postData:" + postBody);
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(readTimeout).setConnectTimeout(connectTimeout).build();
+        HttpHost proxy = buildHttpsProxy();
+        RequestConfig requestConfig = RequestConfig.custom().setProxy(proxy).setSocketTimeout(readTimeout).setConnectTimeout(connectTimeout).build();
         HttpPost httpPost = new HttpPost(url);
         try
         {
@@ -629,11 +662,43 @@ public abstract class WebUtils {
           result = EntityUtils.toString(entity, charset);
           
         }catch (Exception e){
-            throw new RuntimeException("http get throw Exception");
+            throw new RuntimeException("http get throw Exception ==>"+e.getMessage());
         }finally{
         	httpPost.abort();
         }
         System.out.println("responseData:" + result);
 		return result;
     }
+
+	/**
+	 * make by liuxj 2018年5月22日下午4:31:31
+	 * @return
+	 */
+	private static HttpHost buildHttpsProxy() {
+
+		String proxyHost  = System.getProperty("https.proxyHost");
+		String proxyPort  = System.getProperty("https.proxyPort");
+		int port = -1;
+		if(null!=proxyHost && !proxyHost.isEmpty()) {
+			try {
+				port = Integer.valueOf(proxyPort);
+			}catch(NumberFormatException e) {
+				System.out.println("getProperty proxyPort NumberFormatException err  proxyPort="+proxyPort+",use defalut -1");
+			}
+			return new HttpHost(proxyHost,port,"https");
+		}else {
+			proxyHost = System.getenv("proxyHost");
+			proxyPort = System.getenv("proxyPort");
+			if(null!=proxyHost && !proxyHost.isEmpty()) {
+				try {
+					port = Integer.valueOf(proxyPort);
+				}catch(NumberFormatException e) {
+					System.out.println("getenv proxyPort NumberFormatException err  proxyPort="+proxyPort+",use defalut -1");
+				}
+				return new HttpHost(proxyHost,port,"https");
+			}
+		}
+		System.out.println("HttpsProxy use http.");
+		return buildHttpProxy();
+	}
 }
