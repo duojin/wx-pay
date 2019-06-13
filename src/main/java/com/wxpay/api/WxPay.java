@@ -10,9 +10,11 @@ import com.wxpay.api.conf.WxpayConfigure;
 import com.wxpay.api.domain.WxpayTradeAppPayModel;
 import com.wxpay.api.internal.util.WxpaySignature;
 import com.wxpay.api.request.WxpayFundTransToaccountTransferRequest;
+import com.wxpay.api.request.WxpayTradeQueryRequest;
 import com.wxpay.api.request.WxpayTradeRefundRequest;
 import com.wxpay.api.request.WxpayUnifiedorderRequest;
 import com.wxpay.api.response.WxpayFundTransToaccountTransferResponse;
+import com.wxpay.api.response.WxpayTradeQueryResponse;
 import com.wxpay.api.response.WxpayTradeRefundResponse;
 import com.wxpay.api.response.WxpayUnifiedorderResponse;
 
@@ -112,6 +114,28 @@ public class WxPay {
     public static boolean verifySign(Map<String, String> paramsMap) throws WxpayApiException {
 
         return WxpaySignature.signCheck(paramsMap, WxpayConfigure.getMCH_KEY(), WxpayConstants.SIGN_TYPE);
+    }
+    
+    /**
+     * 单个订单查询接口
+     * @param bizContent
+     * @return
+     * @throws WxpayApiException
+     */
+    public static WxpayTradeQueryResponse queryTrade(Map<String, Object> bizContent) throws WxpayApiException {
+    	
+    	logger.debug("##in## paramsMap:="+new Gson().toJson(bizContent));
+    	
+    	WxpayTradeQueryRequest request = new WxpayTradeQueryRequest();
+    	request.setBizContent(bizContent);
+    	WxpayTradeQueryResponse response = wxpayClient.execute(request);
+    	if(response.isSuccess()){
+    		logger.info("##out## response:="+new Gson().toJson(response));
+    		return response;
+    	} else {
+    		logger.error("##out## response:="+new Gson().toJson(response));
+    		throw new WxpayApiException(response.getErr_code_des());
+    	}
     }
     
     public static String notifyResponse(Response res){
