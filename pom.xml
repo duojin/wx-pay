@@ -44,21 +44,21 @@
   </dependencies>
 
 <properties>
-	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<maven.compiler.source>1.8</maven.compiler.source>
-	<maven.compiler.target>1.8</maven.compiler.target>
-	<repository.host>http://www.zhdconet.com:20000/</repository.host>   
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <repository.host>http://nexus.cscctech.com/</repository.host>    
 </properties>
 <distributionManagement>
 	<repository>
            <id>releases</id>
            <name>maven-releases</name>
-           <url>${repository.host}nexus/content/repositories/releases/</url>
+           <url>${repository.host}repository/maven-releases/</url>
        </repository>
        <snapshotRepository>
            <id>snapshots</id>
            <name>maven-snapshots</name>
-           <url>${repository.host}nexus/content/repositories/snapshots/</url>
+           <url>${repository.host}repository/maven-snapshots/</url>
        </snapshotRepository>
 </distributionManagement>
 <build>  
