@@ -196,6 +196,7 @@ public class WxpayFundTransOrderQueryResponse extends WxpayResponse {
 		this.desc = desc;
 	}
 
+	@Override
 	public boolean isNeedVerifySign(){
 		return false;
 	}

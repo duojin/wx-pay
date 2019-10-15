@@ -492,7 +492,8 @@ public class WxpayTradeRefundResponse extends WxpayResponse {
 		this.err_code_des = err_code_des;
 	}
 
-	public boolean isNeedVerifySign(){
+	@Override
+    public boolean isNeedVerifySign(){
 		return true;
 	}
 }

@@ -19,13 +19,15 @@ public class WxpayFundTransOrderQueryRequest implements WxpayRequest<WxpayFundTr
 	/**
 	 * 接口链接
 	 */
-	public String getApiUrl() {
+	@Override
+    public String getApiUrl() {
 		return "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
 	}
 	
 	/**
 	 * 是否需要证书	
 	 */
+	@Override
 	public boolean isNeedCert() {
 		return true;
 	}
@@ -104,10 +106,12 @@ public class WxpayFundTransOrderQueryRequest implements WxpayRequest<WxpayFundTr
 		this.appid = appid;
 	}
 
+	@Override
 	public Class<WxpayFundTransOrderQueryResponse> getResponseClass() {
 		return WxpayFundTransOrderQueryResponse.class;
 	}
 
+	@Override
 	public void setClientParams(Map<String, String> clientParams) {
 		setAppid(clientParams.get("appid"));
 		setMchid(clientParams.get("mch_id"));

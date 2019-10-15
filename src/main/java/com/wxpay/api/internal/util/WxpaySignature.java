@@ -11,6 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import com.wxpay.api.WxpayApiException;
 import com.wxpay.api.WxpayConstants;
+import com.wxpay.api.internal.parser.xml.XMLParser;
 import com.wxpay.api.internal.util.codec.Hex;
 
 /**
@@ -117,4 +118,16 @@ public class WxpaySignature {
         }
     }
 
+    public static Map<String, String> decodeReqInfo(String req_info, String mch_key) throws WxpayApiException {
+        return XMLParser.getMapFromXML(decodeReqInfoToStr(req_info,mch_key));
+    }
+
+    public static String decodeReqInfoToStr(String req_info, String mch_key) throws WxpayApiException {
+        try{
+            String decodeXml = AESUtil.decryptData(req_info,mch_key);
+            return decodeXml;
+        }catch (Exception e){
+            throw new WxpayApiException(e);
+        }
+    }
 }

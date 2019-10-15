@@ -21,4 +21,6 @@ public interface WxpayClient {
 
 	public String sdkExecute(WxpayTradeAppPayModel appPay) throws WxpayApiException;
 
+    public <T extends WxpayResponse> T download(WxpayRequest<T> request,String filePath)  throws WxpayApiException;
+
 }

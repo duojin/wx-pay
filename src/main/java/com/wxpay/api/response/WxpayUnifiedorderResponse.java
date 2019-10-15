@@ -152,7 +152,8 @@ public class WxpayUnifiedorderResponse extends WxpayResponse {
 		this.prepay_id = prepay_id;
 	}
 	
-	public boolean isNeedVerifySign(){
+	@Override
+    public boolean isNeedVerifySign(){
 		return true;
 	}
 }

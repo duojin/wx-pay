@@ -538,7 +538,8 @@ public class WxpayTradeQueryResponse extends WxpayResponse {
 
 
 
-	public boolean isNeedVerifySign(){
+	@Override
+    public boolean isNeedVerifySign(){
 		return true;
 	}
 }

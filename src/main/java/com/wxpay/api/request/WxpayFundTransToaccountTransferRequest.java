@@ -17,13 +17,15 @@ public class WxpayFundTransToaccountTransferRequest implements WxpayRequest<Wxpa
 	/**
 	 * 接口链接
 	 */
-	public String getApiUrl() {
+	@Override
+    public String getApiUrl() {
 	    return "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 	}
 	
 	/**
 	 * 是否需要证书	
 	 */
+	@Override
 	public boolean isNeedCert() {
 		return true;
 	}
@@ -221,10 +223,12 @@ public class WxpayFundTransToaccountTransferRequest implements WxpayRequest<Wxpa
 		this.spbill_create_ip = spbill_create_ip;
 	}
 
+	@Override
 	public Class<WxpayFundTransToaccountTransferResponse> getResponseClass() {
 		return WxpayFundTransToaccountTransferResponse.class;
 	}
 
+	@Override
 	public void setClientParams(Map<String, String> clientParams){
 		setMch_appid(clientParams.get("appid"));
 	    setMchid(clientParams.get("mch_id"));

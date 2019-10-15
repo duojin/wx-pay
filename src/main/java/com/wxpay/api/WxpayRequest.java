@@ -26,6 +26,15 @@ public interface WxpayRequest<T extends WxpayResponse> {
      * @return
      */
     public boolean isNeedCert();
+
+    /**
+     * 签名类型
+     *
+     * @return
+     */
+    public default String getSign_type(){
+        return WxpayConstants.SIGN_TYPE_MD5;
+    }
     
     /**
      * 设置公共参数

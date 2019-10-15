@@ -1,13 +1,6 @@
 package com.wxpay.api.internal.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.StringWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -587,7 +580,7 @@ public abstract class WebUtils {
         System.out.println("responseData:" + result);
         return result;
     }
-    
+
     /**
 	 * make by liuxj 2018年5月22日下午2:52:47
 	 * @return

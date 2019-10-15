@@ -153,7 +153,8 @@ public class WxpayFundTransToaccountTransferResponse extends WxpayResponse {
 		this.payment_time = payment_time;
 	}
 
-	public boolean isNeedVerifySign(){
+	@Override
+    public boolean isNeedVerifySign(){
 		return false;
 	}
 }

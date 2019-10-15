@@ -18,12 +18,14 @@ public class WxpayTradeQueryRequest implements WxpayRequest<WxpayTradeQueryRespo
 	/**
 	 * 接口链接
 	 */
+	@Override
 	public String getApiUrl() {
 		return "https://api.mch.weixin.qq.com/pay/orderquery";
 	}
 	/**
 	 * 是否需要证书	
 	 */
+	@Override
 	public boolean isNeedCert() {
 		return false;
 	}
@@ -54,15 +56,6 @@ public class WxpayTradeQueryRequest implements WxpayRequest<WxpayTradeQueryRespo
 	@ApiField("sign")
 	private String sign;
 
-	/** 必填:否
-	 * 
-	 * 签名类型
-	 * 
-	 * 签名类型，目前支持HMAC-SHA256和MD5，默认为MD5
-	 */
-	@ApiField("sign_type")
-	private String sign_type;
-
 	/** 必填:二选一
 	 * 
 	 * 微信订单号
@@ -81,6 +74,7 @@ public class WxpayTradeQueryRequest implements WxpayRequest<WxpayTradeQueryRespo
 	@ApiField("out_trade_no")
 	private String out_trade_no;
 
+	@Override
 	public Class<WxpayTradeQueryResponse> getResponseClass() {
 		return WxpayTradeQueryResponse.class;
 	}
@@ -134,18 +128,6 @@ public class WxpayTradeQueryRequest implements WxpayRequest<WxpayTradeQueryRespo
 		this.sign = sign;
 	}
 	/**
-	 * @return the sign_type
-	 */
-	public String getSign_type() {
-		return sign_type;
-	}
-	/**
-	 * @param sign_type the sign_type to set
-	 */
-	public void setSign_type(String sign_type) {
-		this.sign_type = sign_type;
-	}
-	/**
 	 * @return the transaction_id
 	 */
 	public String getTransaction_id() {
@@ -174,11 +156,11 @@ public class WxpayTradeQueryRequest implements WxpayRequest<WxpayTradeQueryRespo
 		setTransaction_id(getContent("transaction_id",bizContent));
 	}
 	  
+	@Override
 	public void setClientParams(Map<String, String> clientParams){
 		setAppid(clientParams.get("appid"));
 		setMch_id(clientParams.get("mch_id"));
 		setNonce_str(RandomUtil.getRandomString());
-		setSign_type(clientParams.get("sign_type"));
 	}
 	
 	private String getContent(String key,Map<String, Object> bizContent){

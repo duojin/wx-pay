@@ -2,6 +2,7 @@ package com.wxpay.api.request;
 
 import java.util.Map;
 
+import com.wxpay.api.WxpayConstants;
 import com.wxpay.api.WxpayRequest;
 import com.wxpay.api.conf.WxpayConfigure;
 import com.wxpay.api.internal.mapping.ApiField;
@@ -20,12 +21,14 @@ public class WxpayTradeRefundRequest implements WxpayRequest<WxpayTradeRefundRes
 	/**
 	 * 接口链接
 	 */
-	public String getApiUrl() {
+	@Override
+    public String getApiUrl() {
 		return "https://api.mch.weixin.qq.com/secapi/pay/refund";
 	}
 	/**
 	 * 是否需要证书	
 	 */
+	@Override
 	public boolean isNeedCert() {
 		return true;
 	}
@@ -63,7 +66,7 @@ public class WxpayTradeRefundRequest implements WxpayRequest<WxpayTradeRefundRes
 	 * 签名类型，目前支持HMAC-SHA256和MD5，默认为MD5
 	 */
 	@ApiField("sign_type")
-	private String sign_type;
+	private String sign_type = WxpayConstants.SIGN_TYPE_MD5;
 
 	/** 必填:二选一
 	 * 
@@ -143,6 +146,7 @@ public class WxpayTradeRefundRequest implements WxpayRequest<WxpayTradeRefundRes
 	@ApiField("notify_url")
 	private String notify_url;
 
+	@Override
 	public Class<WxpayTradeRefundResponse> getResponseClass() {
 		return WxpayTradeRefundResponse.class;
 	}
@@ -198,6 +202,7 @@ public class WxpayTradeRefundRequest implements WxpayRequest<WxpayTradeRefundRes
 	/**
 	 * @return the sign_type
 	 */
+	@Override
 	public String getSign_type() {
 		return sign_type;
 	}
@@ -323,6 +328,7 @@ public class WxpayTradeRefundRequest implements WxpayRequest<WxpayTradeRefundRes
 		setRefund_desc(getContent("refund_desc",bizContent));
 	}
 	  
+	@Override
 	public void setClientParams(Map<String, String> clientParams){
 		setAppid(clientParams.get("appid"));
 		setMch_id(clientParams.get("mch_id"));
