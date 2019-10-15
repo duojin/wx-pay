@@ -124,7 +124,7 @@ public class WxpaySignature {
 
     public static String decodeReqInfoToStr(String req_info, String mch_key) throws WxpayApiException {
         try{
-            String decodeXml = AESUtil.decryptData(req_info,mch_key);
+            String decodeXml = AESUtil.decryptData(req_info,AESUtil.md5(mch_key));
             return decodeXml;
         }catch (Exception e){
             throw new WxpayApiException(e);

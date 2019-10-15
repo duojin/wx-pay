@@ -45,7 +45,7 @@ public class AESUtil {
         }
         return new String(cipher.doFinal(Base64.getDecoder().decode(base64Data)), UTF_8);
     }
-    private static String md5(String data) throws Exception {
+    public static String md5(String data) throws Exception {
         MessageDigest md = MessageDigest.getInstance("MD5");
         byte[] array = md.digest(data.getBytes(UTF_8));
         StringBuilder sb = new StringBuilder();
