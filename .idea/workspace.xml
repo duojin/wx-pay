@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2a617e9a-fd98-43b0-9b4e-53643f423847" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="2a617e9a-fd98-43b0-9b4e-53643f423847" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +162,7 @@
       <workItem from="1570841471964" duration="9409000" />
       <workItem from="1571019809972" duration="12147000" />
       <workItem from="1571101014295" duration="9874000" />
-      <workItem from="1571117187962" duration="585000" />
+      <workItem from="1571117187962" duration="857000" />
     </task>
     <task id="LOCAL-00001" summary="完善微信支付的其他接口">
       <created>1571116642701</created>
