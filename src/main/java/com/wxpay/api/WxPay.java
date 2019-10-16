@@ -146,7 +146,7 @@ public class WxPay {
 			logger.info("##out## response:="+new Gson().toJson(response));
 		} else {
 			logger.error("##out## response:="+new Gson().toJson(response));
-			throw new WxpayApiException(response.getErr_code());
+			throw new WxpayApiException(response.getReturn_msg());
 		}
 	}
 
