@@ -28,8 +28,8 @@ public class TestWxPay {
 	public void TestTradeRefund() throws WxpayApiException{
 
 		Map<String, Object> bizContent = new HashMap();
-		bizContent.put("out_trade_no", "7f5ce435e7594e8e98339e3cdbe86d00");
-		bizContent.put("trade_no", "");//二选一
+		bizContent.put("out_trade_no", "");
+		bizContent.put("transaction_id", "4200000413201910242619955550");//二选一
 		bizContent.put("out_refund_no", UUID.randomUUID().toString().replaceAll("-",""));
 		String fee = "1";
 		bizContent.put("total_fee", fee);

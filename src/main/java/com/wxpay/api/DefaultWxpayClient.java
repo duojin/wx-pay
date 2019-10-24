@@ -171,7 +171,6 @@ public class DefaultWxpayClient implements WxpayClient {
 
     /**
      * @param request
-     * @param parser
      * @return
      * @throws WxpayApiException
      */
