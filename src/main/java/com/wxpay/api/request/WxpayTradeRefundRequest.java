@@ -321,6 +321,7 @@ public class WxpayTradeRefundRequest implements WxpayRequest<WxpayTradeRefundRes
 		this.notify_url = notify_url;
 	}
 	public void setBizContent(Map<String, Object> bizContent){
+		setTransaction_id(getContent("transaction_id",bizContent));
 		setOut_trade_no(getContent("out_trade_no",bizContent));
 		setOut_refund_no(getContent("out_refund_no",bizContent));
 		setTotal_fee(Integer.valueOf(getContent("total_fee",bizContent)));
@@ -334,7 +335,7 @@ public class WxpayTradeRefundRequest implements WxpayRequest<WxpayTradeRefundRes
 		setMch_id(clientParams.get("mch_id"));
 		setNonce_str(RandomUtil.getRandomString());
 		setSign_type(clientParams.get("sign_type"));
-		setNotify_url(WxpayConfigure.getNOTIFY_URL());
+		//setNotify_url(WxpayConfigure.getNOTIFY_URL());
 	}
 	
 	private String getContent(String key,Map<String, Object> bizContent){
